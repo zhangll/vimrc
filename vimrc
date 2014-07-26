@@ -69,10 +69,9 @@
 "}
  
 " ENCODING {
-    set fenc=utf-8
-    set encoding=utf-8
-    set fileencodings=utf-8,gbk,cp936,latin-1
-	set encoding=prc
+    set fencs=utf-8,gbk
+    set fileencodings=ucs-bom,utf-8,utf-16,gbk,big5,gb18030,latin1
+	"set encoding=prc
     source $VIMRUNTIME/delmenu.vim " 解决菜单乱码
     source $VIMRUNTIME/menu.vim " 解决consle输出乱码
     language messages zh_CN.utf-8
@@ -101,10 +100,9 @@
 
 " UI {
     Bundle 'Solarized'
-    set background=dark
     colorscheme solarized
+    "set background=dark
     Plugin 'bling/vim-airline'
-
 " }
 
 "字符画 {

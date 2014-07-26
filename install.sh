@@ -1,4 +1,5 @@
 #!/bin/sh
+
 cd ~/.vim
 
 if [ -f "$HOME/.vimrc" ]; then

@@ -19,7 +19,7 @@
     if LINUX()
         set guifont=Monaco\ 10
     elseif OSX()
-        set guifont=Consolas:h12
+        set guifont=Monaco:h13 "Consolas:h14
     elseif WINDOWS()
         set guifont=Monaco:h10
         source $VIMRUNTIME/mswin.vim
@@ -100,8 +100,11 @@
 
 " UI {
     Bundle 'Solarized'
+    "set term=xterm-256color
+    let g:solarized_termtrans = 1
+    let g:solarized_termcolors=256
+    set background=dark
     colorscheme solarized
-    "set background=dark
     Plugin 'bling/vim-airline'
 " }
 

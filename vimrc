@@ -31,28 +31,28 @@
     set t_Co=256
     "colorscheme desert  
     
-    set nobackup  "设置没有~的备份
-    set autoread  "当文件外部修改时自动重新读取
+    set nobackup  
+    set autoread  
     "set clipboard+=unnamed
     "set clipboard+=unnamedplus
     set autochdir
-    set hlsearch   "高亮搜索关键字 去除搜索后的高亮显示:set nohls
+    set hlsearch   
     set incsearch
     set ignorecase
 
-    syntax enable                " 打开语法高亮
-    syntax on                    " 开启文件类型侦测
-    filetype indent on           " 针对不同的文件类型采用不同的缩进格式
-    filetype plugin on           " 针对不同的文件类型加载对应的插件
-    filetype plugin indent on    " 启用自动补全
+    syntax enable                
+    syntax on                    
+    filetype indent on           
+    filetype plugin on           
+    filetype plugin indent on    
 
     "python indent config
-    set shiftwidth=4  "回车4个空格缩进
-    set ts=4	"按tab产生4个空格
+    set shiftwidth=4  
+    set ts=4	
     set expandtab
-    set autoindent  "回车后也是4个空格
-    set laststatus=2             " 开启状态栏信息
-    set cmdheight=1             " 命令行的高度，默认为1，这里设为2
+    set autoindent 
+    set laststatus=2            
+    set cmdheight=1             
     set nu!                     
     set foldlevelstart=99
     set iskeyword+=-
@@ -72,20 +72,20 @@
     set fencs=utf-8,gbk
     set fileencodings=ucs-bom,utf-8,utf-16,gbk,big5,gb18030,latin1
 	"set encoding=prc
-    source $VIMRUNTIME/delmenu.vim " 解决菜单乱码
-    source $VIMRUNTIME/menu.vim " 解决consle输出乱码
+    source $VIMRUNTIME/delmenu.vim 
+    source $VIMRUNTIME/menu.vim 
     language messages zh_CN.utf-8
 "}
 
 "SYNTAX HIGHLIGHT CONFIG{ 
-    au BufRead,BufNewFile jquery.*.js set ft=javascript syntax=jquery "jQuery语法高亮显示
+    au BufRead,BufNewFile jquery.*.js set ft=javascript syntax=jquery 
 "}
 
 "JAVASCRIPT { 
-    let javascript_enable_domhtmlcss=1 "打开javascript对dom、html和css的支持
+    let javascript_enable_domhtmlcss=1 
 "} 
 
-"自动补全不会消失{
+"{
         set completeopt=longest,menuone
         inoremap <expr> <cr> pumvisible() ? "\<c-y>" : "\<c-g>u\<cr>"
         inoremap <expr> <c-n> pumvisible() ? "\<c-n>" : "\<c-n>\<c-r>=pumvisible() ? \"\\<down>\" : \"\\<cr>\""
@@ -108,7 +108,7 @@
     Plugin 'bling/vim-airline'
 " }
 
-"字符画 {
+"{
     Bundle 'sketch.vim' 
     map <silent> <leader>ske :call ToggleSketch()<CR>
 "}

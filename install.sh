@@ -1,6 +1,6 @@
 #!/bin/sh
 
-cd ~/.vim
+mv ../vimrc ~/.vim
 
 if [ -f "$HOME/.vimrc" ]; then
     mv ~/.vimrc ~/.vimrc.`date +%Y%m%d`

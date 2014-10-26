@@ -93,9 +93,10 @@
 "}
 
 " vundle {
+    Bundle 'gmarik/vundle'
     set rtp+=~/.vim/bundle/vundle/
     call vundle#rc()
-    Bundle 'gmarik/vundle'
+    
 " }
 
 " UI {

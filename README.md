@@ -1,4 +1,4 @@
-env_vimrc
+vim config
 =========
 
-my dev vim env config
+myself vim config.

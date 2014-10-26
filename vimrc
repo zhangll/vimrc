@@ -186,6 +186,7 @@ Bundle 'surround.vim'
 
 " KeyMap {
     let mapleader = "," 
+    :imap ;; <Esc>
 "}
 
 "fix bugs E303 {

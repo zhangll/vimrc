@@ -124,6 +124,7 @@ Bundle 'surround.vim'
     nmap <F8> :TagbarToggle<CR>   
 "}
 
+Plugin 'rizzatti/dash.vim'
 
 
 "{
@@ -182,7 +183,6 @@ Bundle 'surround.vim'
 " xptemplate setting.{
     Bundle 'xptemplate'
     let    g:xptemplate_vars =  '$author=zhangll&$email=lzz.jason@gmail.com'
-    let    g:xptemplate_vars = "SParg=" 
 " }
 
 " KeyMap {

@@ -201,6 +201,12 @@ Plugin 'rizzatti/dash.vim'
     ":imap ;; <Esc>
 "}
 
+" workdir setting { http://vim.wikia.com/wiki/Set_working_directory_to_the_current_file
+    cd ~/
+    set autochdir
+    autocmd BufEnter * silent! lcd %:p:h
+" }
+
 "fix bugs E303 {
     set directory=.,$TEMP
 "}

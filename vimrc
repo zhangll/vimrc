@@ -70,7 +70,8 @@
  
 " ENCODING {
     set fencs=utf-8,gbk
-    set fileencodings=ucs-bom,utf-8,utf-16,gbk,big5,gb18030,latin1
+    set encoding=utf-8
+    set fileencodings=utf-8,gbk,cp936,latin-1
 	"set encoding=prc
     source $VIMRUNTIME/delmenu.vim 
     source $VIMRUNTIME/menu.vim 
@@ -197,7 +198,7 @@ Plugin 'rizzatti/dash.vim'
 
 " KeyMap {
     let mapleader = "," 
-    :imap ;; <Esc>
+    ":imap ;; <Esc>
 "}
 
 "fix bugs E303 {

@@ -58,8 +58,50 @@
     set nu!                     
     set foldlevelstart=99
     set iskeyword+=-
+
+    set paste " keep  format
+    
+    set iskeyword+=_,$,@,%,#,-
+
+    "set cc=120
+    "highlight OverLength ctermbg=red ctermfg=white guibg=#592929 
+    "match OverLength /\%121v.\+/
+
+    nnoremap <F2> :g/^\s*$/d<CR>  "remote blank line
+
+    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+    "autocmd! bufwritepost .vimrc source %  " auto reload .vimrc
 "}
- 
+
+" compile and run
+map <F5> :call CompileRunGcc()<CR>
+func! CompileRunGcc()
+	exec "w"
+	if &filetype == 'c'
+		exec "!g++ % -o %<"
+		exec "!time ./%<"
+	elseif &filetype == 'cpp'
+		exec "!g++ % -o %<"
+		exec "!time ./%<"
+	elseif &filetype == 'java' 
+		exec "!javac %" 
+		exec "!time java %<"
+	elseif &filetype == 'sh'
+		:!time bash %
+	elseif &filetype == 'python'
+		exec "!time python2.7 %"
+    elseif &filetype == 'html'
+        exec "!firefox % &"
+    elseif &filetype == 'go'
+"        exec "!go build %<"
+        exec "!time go run %"
+    elseif &filetype == 'mkd'
+        exec "!~/.vim/markdown.pl % > %.html &"
+        exec "!firefox %.html &"
+	endif
+endfunc
+
+
 " ENCODING {
     set fencs=utf-8,gbk
     set encoding=utf-8
@@ -151,9 +193,9 @@
 "}
 
 " workdir setting { http://vim.wikia.com/wiki/Set_working_directory_to_the_current_file
-    cd ~/
+    "cd ~/
     set autochdir
-    autocmd BufEnter * silent! lcd %:p:h
+    "autocmd BufEnter * silent! lcd %:p:h
 " }
 
 "fix bugs E303 {

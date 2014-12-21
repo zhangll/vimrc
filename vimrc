@@ -90,6 +90,7 @@
     Plugin 'SirVer/ultisnips'
     Plugin 'mattn/emmet-vim'
     Plugin 'vim-multiple-cursors'
+    Plugin 'Valloric/YouCompleteMe'
 
 " }
 

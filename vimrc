@@ -132,7 +132,7 @@ endfunc
     Plugin 'SirVer/ultisnips'
     Plugin 'mattn/emmet-vim'
     Plugin 'vim-multiple-cursors'
-    Plugin 'Valloric/YouCompleteMe'
+    "Plugin 'Valloric/YouCompleteMe'
 
 " }
 

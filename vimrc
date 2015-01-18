@@ -16,27 +16,26 @@
         endfunction
 " }
 
-"Gui setting {
-    if LINUX()
+if LINUX()
         set guifont=Monaco\ 10
     elseif OSX()
         set guifont=Monaco:h13 "Consolas:h14
     elseif WINDOWS()
-        set guifont=Monaco:h10
+        "set guifont=Monaco:h10
         source $VIMRUNTIME/mswin.vim
         behave mswin
-        if has("gui_running")
-            set guioptions-=l
-            set guioptions-=L
-            "set guioptions-=r
-            "set guioptions-=R
-            set guioptions-=T
-        endif
-    end
-"}
+        au GUIEnter * simalt ~x
+        "if has("gui_running")
+        "    set guioptions-=l
+        "    set guioptions-=L
+        "    "set guioptions-=r
+        "    "set guioptions-=R
+        "    set guioptions-=T
+        "endif
+end
+
 
 "basic config {
-    set t_Co=256
     "colorscheme desert  
     
     set nobackup  
@@ -132,8 +131,8 @@ endfunc
     Plugin 'SirVer/ultisnips'
     Plugin 'mattn/emmet-vim'
     Plugin 'vim-multiple-cursors'
-    Plugin 'Valloric/YouCompleteMe'
-
+    "Plugin 'Valloric/YouCompleteMe'
+    Plugin 'asins/vimcdoc'
 " }
 
 " Bundle end {
@@ -207,11 +206,12 @@ endfunc
 
 " solarized:
 syntax enable                
-let g:solarized_termtrans = 1
-let g:solarized_termcolors=256
-set background=dark
-colorscheme solarized
-"set term=xterm-256color
+if OSX()
+    let g:solarized_termtrans = 1
+    let g:solarized_termcolors=256
+    set background=dark
+    colorscheme solarized
+end
 
 " ultisnips:
 let g:UltiSnipsSnippetDirectories=["UltiSnips", "local_snips"]
@@ -230,6 +230,7 @@ autocmd FileType html,css,xml EmmetInstall
 let g:user_emmet_leader_key='<C-E>'
 
 " pymode:
+let g:pymode_rope_autoimport = 0
 let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe']
 let g:pymode_utils_whitespaces = 0
 let g:pymode_options = 0

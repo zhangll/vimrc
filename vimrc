@@ -133,6 +133,8 @@ endfunc
     Plugin 'vim-multiple-cursors'
     "Plugin 'Valloric/YouCompleteMe'
     Plugin 'asins/vimcdoc'
+    Bundle 'aklt/plantuml-syntax'
+    Plugin 'Gundo'
 " }
 
 " Bundle end {
@@ -246,7 +248,7 @@ let NERDTreeShowBookmarks=1
 let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
 let NERDTreeChDirMode=0
 let NERDTreeMouseMode=2
-let NERDTreeShowHidden=1
+let NERDTreeShowHidden=0
 let NERDTreeKeepTreeInNewTab=1
 let g:nerdtree_tabs_open_on_gui_startup=0
 
@@ -254,3 +256,7 @@ let g:nerdtree_tabs_open_on_gui_startup=0
     let g:tagbar_width = 25
     nmap <F8> :TagbarToggle<CR>   
 "}
+
+" Gundo {
+  nnoremap <F3> :GundoToggle<CR>
+" }

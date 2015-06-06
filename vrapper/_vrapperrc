@@ -7,7 +7,7 @@ set nu
 set softtabstop=4
 set tabstop=4
 set shiftwidth=4
-set clipboard=unnamedplus
+"set clipboard=unnamedplus
 set gvimpath=D:\\opt\\vim7.3\\vim73\\gvim.exe
 
 

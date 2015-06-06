@@ -135,6 +135,7 @@ endfunc
     Plugin 'asins/vimcdoc'
     Bundle 'aklt/plantuml-syntax'
     Plugin 'Gundo'
+    Bundle 'amoffat/snake'
 " }
 
 " Bundle end {

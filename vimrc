@@ -16,27 +16,27 @@
         endfunction
 " }
 
-if LINUX()
-        set guifont=Monaco\ 10
-    elseif OSX()
-        set guifont=Monaco:h13 "Consolas:h14
-    elseif WINDOWS()
-        "set guifont=Monaco:h10
-        source $VIMRUNTIME/mswin.vim
-        behave mswin
-        au GUIEnter * simalt ~x
-        "if has("gui_running")
-        "    set guioptions-=l
-        "    set guioptions-=L
-        "    "set guioptions-=r
-        "    "set guioptions-=R
-        "    set guioptions-=T
-        "endif
-end
-
-
 "basic config {
     "colorscheme desert  
+    "UI settings {
+        if LINUX()
+                set guifont=Monaco\ 10
+           elseif OSX()
+                set guifont=Monaco:h13 "Consolas:h14
+           elseif WINDOWS()
+                "set guifont=Monaco:h10
+                source $VIMRUNTIME/mswin.vim
+                behave mswin
+                au GUIEnter * simalt ~x
+                "if has("gui_running")
+                "    set guioptions-=l
+                "    set guioptions-=L
+                "    "set guioptions-=r
+                "    "set guioptions-=R
+                "    set guioptions-=T
+                "endif
+        end
+    "}
     
     set nobackup  
     set autoread  
@@ -58,7 +58,7 @@ end
     set foldlevelstart=99
     set iskeyword+=-
 
-    set paste " keep  format
+    set paste " keep paste format
     
     set iskeyword+=_,$,@,%,#,-
 
@@ -70,10 +70,12 @@ end
 
     autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
     "autocmd! bufwritepost .vimrc source %  " auto reload .vimrc
+    cnoremap w!! %!sudo tee > /dev/null %
+   
 "}
 
 " compile and run
-map <F5> :call CompileRunGcc()<CR>
+map <C-CR> :call CompileRunGcc()<CR>
 func! CompileRunGcc()
 	exec "w"
 	if &filetype == 'c'
@@ -133,7 +135,9 @@ endfunc
     Plugin 'vim-multiple-cursors'
     "Plugin 'Valloric/YouCompleteMe'
     Plugin 'asins/vimcdoc'
+    Plugin 'matchit.zip'
 " }
+
 
 " Bundle end {
     call vundle#end()
@@ -157,7 +161,7 @@ endfunc
 "}
 
 
-"key map binding{
+"key map event binding{
     imap <F3> <C-R>=strftime("%Y-%m-%d %H:%M")<CR>
     map <UP> <C-W>+ 
     map <DOWN> <C-W>-
@@ -168,8 +172,8 @@ endfunc
 " ctrlp {
     let g:ctrlp_custom_ignore = {
             \ 'dir':  '\.git$\|\.hg$\|\.svn$',
-            \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$' }
-
+            \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$|\.class$'}
+    let g:ctrlp_match_window = 'top,order:ttb,min:1,max:10,results:10'
 " }
 
 " JSON {
@@ -253,4 +257,7 @@ let g:nerdtree_tabs_open_on_gui_startup=0
 " tagbar {
     let g:tagbar_width = 25
     nmap <F8> :TagbarToggle<CR>   
+    let g:tagbar_ctags_bin = '/usr/local/Cellar/ctags/5.8_1/bin/ctags' 
 "}
+
+

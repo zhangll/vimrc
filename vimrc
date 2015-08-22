@@ -1,4 +1,10 @@
+" install on macvim brew install macvim --with-cscope --with-lua --HEAD brew install vim --with-lua
+
+
 "git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+
+
+
 "nocompatible with vi{
     set nocompatible
     filetype off 
@@ -120,8 +126,10 @@ endfunc
 "}
 
 " Bundle List {
-    Bundle 'altercation/vim-colors-solarized'
-    Plugin 'bling/vim-airline'
+    "UI Inhance {
+        Bundle 'altercation/vim-colors-solarized'
+        Plugin 'bling/vim-airline'
+    "}
     Bundle 'Markdown'
     Bundle 'EasyMotion'
     Bundle 'surround.vim'
@@ -129,17 +137,45 @@ endfunc
     Bundle 'scrooloose/nerdtree'
     Bundle 'ctrlp.vim'
     Bundle 'klen/python-mode'
-    Plugin 'honza/vim-snippets'
-    Plugin 'SirVer/ultisnips'
+
+    " ultisnips {
+        Plugin 'honza/vim-snippets'
+        Plugin 'SirVer/ultisnips'
+        "let g:UltiSnipsSnippetDirectories=["UltiSnips"]  this is default value
+        let g:UltiSnipsExpandTrigger="<C-Bslash>"
+        "let g:UltiSnipsListSnippets="<C"
+        let g:UltiSnipsJumpForwardTrigger="<tab>"
+        let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+        let g:UltiSnipsEditSplit="vertical"
+    "}
+
+
     Plugin 'mattn/emmet-vim'
     Plugin 'vim-multiple-cursors'
-    "Plugin 'Valloric/YouCompleteMe'
     Plugin 'asins/vimcdoc'
     Plugin 'matchit.zip'
-    Bundle 'aklt/plantuml-syntax'
-    Plugin 'Gundo'
-    Bundle 'amoffat/snake'
+    Bundle 'scrooloose/syntastic'
 " }
+
+Bundle 'aklt/plantuml-syntax'
+" auto complete {
+    Bundle 'Shougo/neocomplete.vim'
+    " Disable AutoComplPop.
+    let g:acp_enableAtStartup = 0
+    " Use neocomplete.
+    let g:neocomplete#enable_at_startup = 1
+    " Use smartcase.
+    let g:neocomplete#enable_smart_case = 1
+"}
+
+" Gundo visualize your Vim undo tree  {
+  Plugin 'Gundo'
+  nnoremap <F3> :GundoToggle<CR>
+" }
+
+"Snake lets you use Python to its fullest extent to write Vim plugins{
+    Bundle 'amoffat/snake'
+"}
 
 
 " Bundle end {
@@ -263,6 +299,4 @@ let g:nerdtree_tabs_open_on_gui_startup=0
     let g:tagbar_ctags_bin = '/usr/local/Cellar/ctags/5.8_1/bin/ctags' 
 "}
 
-" Gundo {
-  nnoremap <F3> :GundoToggle<CR>
-" }
+

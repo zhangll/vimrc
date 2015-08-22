@@ -136,6 +136,9 @@ endfunc
     "Plugin 'Valloric/YouCompleteMe'
     Plugin 'asins/vimcdoc'
     Plugin 'matchit.zip'
+    Bundle 'aklt/plantuml-syntax'
+    Plugin 'Gundo'
+    Bundle 'amoffat/snake'
 " }
 
 
@@ -250,7 +253,7 @@ let NERDTreeShowBookmarks=1
 let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
 let NERDTreeChDirMode=0
 let NERDTreeMouseMode=2
-let NERDTreeShowHidden=1
+let NERDTreeShowHidden=0
 let NERDTreeKeepTreeInNewTab=1
 let g:nerdtree_tabs_open_on_gui_startup=0
 
@@ -260,4 +263,6 @@ let g:nerdtree_tabs_open_on_gui_startup=0
     let g:tagbar_ctags_bin = '/usr/local/Cellar/ctags/5.8_1/bin/ctags' 
 "}
 
-
+" Gundo {
+  nnoremap <F3> :GundoToggle<CR>
+" }

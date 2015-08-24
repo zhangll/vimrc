@@ -1,4 +1,10 @@
+" install on macvim brew install macvim --with-cscope --with-lua --HEAD brew install vim --with-lua
+
+
 "git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+
+
+
 "nocompatible with vi{
     set nocompatible
     filetype off 
@@ -37,6 +43,25 @@ end
 
 "basic config {
     "colorscheme desert  
+    "UI settings {
+        if LINUX()
+                set guifont=Monaco\ 10
+           elseif OSX()
+                set guifont=Monaco:h13 "Consolas:h14
+           elseif WINDOWS()
+                set guifont=Monaco:h9
+                source $VIMRUNTIME/mswin.vim
+                behave mswin
+                au GUIEnter * simalt ~x
+                "if has("gui_running")
+                "    set guioptions-=l
+                "    set guioptions-=L
+                "    "set guioptions-=r
+                "    "set guioptions-=R
+                "    set guioptions-=T
+                "endif
+        end
+    "}
     
     set nobackup  
     set autoread  
@@ -58,7 +83,7 @@ end
     set foldlevelstart=99
     set iskeyword+=-
 
-    set paste " keep  format
+    set paste " keep paste format
     
     set iskeyword+=_,$,@,%,#,-
 
@@ -71,10 +96,12 @@ end
     autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
     "autocmd! bufwritepost .vimrc source %  " auto reload .vimrc
 
+    cnoremap w!! %!sudo tee > /dev/null %
+   
 "}
 
 " compile and run
-map <F5> :call CompileRunGcc()<CR>
+map <C-CR> :call CompileRunGcc()<CR>
 func! CompileRunGcc()
 	exec "w"
 	if &filetype == 'c'
@@ -119,8 +146,10 @@ endfunc
 "}
 
 " Bundle List {
-    Bundle 'altercation/vim-colors-solarized'
-    Plugin 'bling/vim-airline'
+    "UI Inhance {
+        Bundle 'altercation/vim-colors-solarized'
+        Plugin 'bling/vim-airline'
+    "}
     Bundle 'Markdown'
     Bundle 'EasyMotion'
     Bundle 'surround.vim'
@@ -128,16 +157,46 @@ endfunc
     Bundle 'scrooloose/nerdtree'
     Bundle 'ctrlp.vim'
     Bundle 'klen/python-mode'
-    Plugin 'honza/vim-snippets'
-    Plugin 'SirVer/ultisnips'
+
+    " ultisnips {
+        Plugin 'honza/vim-snippets'
+        Plugin 'SirVer/ultisnips'
+        "let g:UltiSnipsSnippetDirectories=["UltiSnips"]  this is default value
+        let g:UltiSnipsExpandTrigger="<C-Bslash>"
+        "let g:UltiSnipsListSnippets="<C"
+        let g:UltiSnipsJumpForwardTrigger="<tab>"
+        let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+        let g:UltiSnipsEditSplit="vertical"
+    "}
+
+
     Plugin 'mattn/emmet-vim'
     Plugin 'vim-multiple-cursors'
-    "Plugin 'Valloric/YouCompleteMe'
     Plugin 'asins/vimcdoc'
-    Bundle 'aklt/plantuml-syntax'
-    Plugin 'Gundo'
-    Bundle 'amoffat/snake'
+    Plugin 'matchit.zip'
+    Bundle 'scrooloose/syntastic'
 " }
+
+Bundle 'aklt/plantuml-syntax'
+" auto complete {
+    Bundle 'Shougo/neocomplete.vim'
+    " Disable AutoComplPop.
+    let g:acp_enableAtStartup = 0
+    " Use neocomplete.
+    let g:neocomplete#enable_at_startup = 1
+    " Use smartcase.
+    let g:neocomplete#enable_smart_case = 1
+"}
+
+" Gundo visualize your Vim undo tree  {
+  Plugin 'Gundo'
+  nnoremap <F3> :GundoToggle<CR>
+" }
+
+"Snake lets you use Python to its fullest extent to write Vim plugins{
+    Bundle 'amoffat/snake'
+"}
+
 
 " Bundle end {
     call vundle#end()
@@ -161,7 +220,7 @@ endfunc
 "}
 
 
-"key map binding{
+"key map event binding{
     imap <F3> <C-R>=strftime("%Y-%m-%d %H:%M")<CR>
     map <UP> <C-W>+ 
     map <DOWN> <C-W>-
@@ -172,8 +231,8 @@ endfunc
 " ctrlp {
     let g:ctrlp_custom_ignore = {
             \ 'dir':  '\.git$\|\.hg$\|\.svn$',
-            \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$' }
-
+            \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$|\.class$'}
+    let g:ctrlp_match_window = 'top,order:ttb,min:1,max:10,results:10'
 " }
 
 " JSON {
@@ -257,8 +316,7 @@ let g:nerdtree_tabs_open_on_gui_startup=0
 " tagbar {
     let g:tagbar_width = 25
     nmap <F8> :TagbarToggle<CR>   
+    let g:tagbar_ctags_bin = '/usr/local/Cellar/ctags/5.8_1/bin/ctags' 
 "}
 
-" Gundo {
-  nnoremap <F3> :GundoToggle<CR>
-" }
+

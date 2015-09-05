@@ -32,7 +32,7 @@
            elseif OSX()
                 set guifont=Monaco:h13 "Consolas:h14
            elseif WINDOWS()
-                "set guifont=Monaco:h10
+                set guifont=Monaco:h9
                 source $VIMRUNTIME/mswin.vim
                 behave mswin
                 au GUIEnter * simalt ~x
@@ -78,6 +78,7 @@
 
     autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
     "autocmd! bufwritepost .vimrc source %  " auto reload .vimrc
+
     cnoremap w!! %!sudo tee > /dev/null %
    
 "}

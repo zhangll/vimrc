@@ -10,6 +10,8 @@ set shiftwidth=4
 "set clipboard=unnamedplus
 set gvimpath=D:\\opt\\vim7.3\\vim73\\gvim.exe
 
+imap ;; <esc>
+
 
 
 "http://vrapper.sourceforge.net/documentation/?topic=configuration

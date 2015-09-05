@@ -1,8 +1,6 @@
 " install on macvim brew install macvim --with-cscope --with-lua --HEAD brew install vim --with-lua
 
-
 "git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-
 
 
 "nocompatible with vi{
@@ -21,6 +19,10 @@
             return  (has('win16') || has('win32') || has('win64'))
         endfunction
 " }
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                Basic Config                                "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 "basic config {
     "colorscheme desert  
@@ -119,6 +121,36 @@ endfunc
     language messages zh_CN.utf-8
 "}
 
+" Enable omni completion.{
+    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+    autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+    autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+"}
+"{
+    set completeopt=longest,menuone
+    inoremap <expr> <cr> pumvisible() ? "\<c-y>" : "\<c-g>u\<cr>"
+    inoremap <expr> <c-n> pumvisible() ? "\<c-n>" : "\<c-n>\<c-r>=pumvisible() ? \"\\<down>\" : \"\\<cr>\""
+    inoremap <expr> <m-;> pumvisible() ? "\<c-n>" : "\<c-x>\<c-o>\<c-n>\<c-p>\<c-r>=pumvisible() ? \"\\<down>\" : \"\\<cr>\""
+"}
+
+
+"key map event binding{
+    "imap <F3> <C-R>=strftime("%Y-%m-%d %H:%M")<CR>  
+    map <UP> <C-W>+ 
+    map <DOWN> <C-W>-
+    map <LEFT> <C-W><
+    map <RIGHT> <C-W>>
+    let mapleader = "," 
+"}
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                               Plugins                                      "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Bundle start {
     set rtp+=~/.vim/bundle/Vundle/
     call vundle#begin()
@@ -127,30 +159,76 @@ endfunc
 
 " Bundle List {
     "UI Inhance {
+        " solarized:
         Bundle 'altercation/vim-colors-solarized'
+        
         Plugin 'bling/vim-airline'
     "}
     Bundle 'Markdown'
     Bundle 'EasyMotion'
     Bundle 'surround.vim'
-    Bundle 'Tagbar'
+    " tagbar {
+        Bundle 'Tagbar'
+        let g:tagbar_width = 25
+        nmap <F8> :TagbarToggle<CR>   
+        let g:tagbar_ctags_bin = '/usr/local/Cellar/ctags/5.8_1/bin/ctags' 
+    "}
+
+
+
+    " nerdtree:
     Bundle 'scrooloose/nerdtree'
-    Bundle 'ctrlp.vim'
+    map <F2> :NERDTreeToggle<CR>   
+    let NERDTreeShowBookmarks=1
+    let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
+    let NERDTreeChDirMode=0
+    let NERDTreeMouseMode=2
+    let NERDTreeShowHidden=0
+    let NERDTreeKeepTreeInNewTab=1
+    let g:nerdtree_tabs_open_on_gui_startup=0
+
+    " ctrlp {
+        Bundle 'ctrlp.vim'
+        let g:ctrlp_custom_ignore = {
+                \ 'dir':  '\.git$\|\.hg$\|\.svn$',
+                \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$|\.class$'}
+        let g:ctrlp_match_window = 'top,order:ttb,min:1,max:10,results:10'
+    " }
+
+
+
+    " pymode:
     Bundle 'klen/python-mode'
+    let g:pymode_rope_autoimport = 0
+    let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe']
+    let g:pymode_utils_whitespaces = 0
+    let g:pymode_options = 0
+    let g:pymode_lint_ignore = "E501"
+    let g:pymode_rope_complete_on_dot = 0
+    "let g:pymode_rope_completion_bind = '<A-/>'
+    let g:pymode_lint_cwindow = 0
+
 
     " ultisnips {
         Plugin 'honza/vim-snippets'
         Plugin 'SirVer/ultisnips'
         "let g:UltiSnipsSnippetDirectories=["UltiSnips"]  this is default value
-        let g:UltiSnipsExpandTrigger="<C-Bslash>"
-        "let g:UltiSnipsListSnippets="<C"
+        "let g:UltiSnipsExpandTrigger="<C-Bslash>"
+        let g:UltiSnipsExpandTrigger="<D-/>"
         let g:UltiSnipsJumpForwardTrigger="<tab>"
         let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
         let g:UltiSnipsEditSplit="vertical"
     "}
 
-
+    " emmet:
     Plugin 'mattn/emmet-vim'
+    let g:user_emmet_mode='n'    "only enable normal mode functions.
+    let g:user_emmet_mode='inv'  "enable all functions, which is equal to
+    let g:user_emmet_mode='a'    "enable all function in all mode.
+    let g:user_emmet_install_global = 0
+    autocmd FileType html,css,xml EmmetInstall
+    let g:user_emmet_leader_key='<C-E>'
+
     Plugin 'vim-multiple-cursors'
     Plugin 'asins/vimcdoc'
     Plugin 'matchit.zip'
@@ -158,6 +236,7 @@ endfunc
 " }
 
 Bundle 'aklt/plantuml-syntax'
+
 " auto complete {
     Bundle 'Shougo/neocomplete.vim'
     " Disable AutoComplPop.
@@ -166,6 +245,7 @@ Bundle 'aklt/plantuml-syntax'
     let g:neocomplete#enable_at_startup = 1
     " Use smartcase.
     let g:neocomplete#enable_smart_case = 1
+
 "}
 
 " Gundo visualize your Vim undo tree  {
@@ -192,47 +272,6 @@ Bundle 'aklt/plantuml-syntax'
     let javascript_enable_domhtmlcss=1 
 "} 
 
-"{
-    set completeopt=longest,menuone
-    inoremap <expr> <cr> pumvisible() ? "\<c-y>" : "\<c-g>u\<cr>"
-    inoremap <expr> <c-n> pumvisible() ? "\<c-n>" : "\<c-n>\<c-r>=pumvisible() ? \"\\<down>\" : \"\\<cr>\""
-    inoremap <expr> <m-;> pumvisible() ? "\<c-n>" : "\<c-x>\<c-o>\<c-n>\<c-p>\<c-r>=pumvisible() ? \"\\<down>\" : \"\\<cr>\""
-"}
-
-
-"key map event binding{
-    imap <F3> <C-R>=strftime("%Y-%m-%d %H:%M")<CR>
-    map <UP> <C-W>+ 
-    map <DOWN> <C-W>-
-    map <LEFT> <C-W><
-    map <RIGHT> <C-W>>
-"}
-
-" ctrlp {
-    let g:ctrlp_custom_ignore = {
-            \ 'dir':  '\.git$\|\.hg$\|\.svn$',
-            \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$|\.class$'}
-    let g:ctrlp_match_window = 'top,order:ttb,min:1,max:10,results:10'
-" }
-
-" JSON {
-        nmap <leader>jt <Esc>:%!python -m json.tool<CR><Esc>:set filetype=json<CR>
-" }
-
-
-" Enable omni completion.{
-    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-    autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-    autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
-"}
-
-" KeyMap {
-    let mapleader = "," 
-    ":imap ;; <Esc>
-"}
 
 " workdir setting { http://vim.wikia.com/wiki/Set_working_directory_to_the_current_file
     "cd ~/
@@ -245,9 +284,10 @@ Bundle 'aklt/plantuml-syntax'
 "}
 
 
-"------------------------ Bundle third part plugin setting--------------------
+"""""""""""""""""""""""""""""""""""
+"  must setting here, may be bug  "
+"""""""""""""""""""""""""""""""""""
 
-" solarized:
 syntax enable                
 if OSX()
     let g:solarized_termtrans = 1
@@ -256,47 +296,9 @@ if OSX()
     colorscheme solarized
 end
 
-" ultisnips:
-let g:UltiSnipsSnippetDirectories=["UltiSnips", "local_snips"]
-let g:UltiSnipsExpandTrigger="<C-Bslash>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-let g:UltiSnipsEditSplit="vertical"
+
+"user-command
+command -nargs=0 JsonFormat :%! python -m json.tool<CR><Esc>:set filetype=json<CR>
 
 
-" emmet:
-let g:user_emmet_mode='n'    "only enable normal mode functions.
-let g:user_emmet_mode='inv'  "enable all functions, which is equal to
-let g:user_emmet_mode='a'    "enable all function in all mode.
-let g:user_emmet_install_global = 0
-autocmd FileType html,css,xml EmmetInstall
-let g:user_emmet_leader_key='<C-E>'
-
-" pymode:
-let g:pymode_rope_autoimport = 0
-let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe']
-let g:pymode_utils_whitespaces = 0
-let g:pymode_options = 0
-let g:pymode_lint_ignore = "E501"
-let g:pymode_rope_complete_on_dot = 0
-"let g:pymode_rope_completion_bind = '<A-/>'
-let g:pymode_lint_cwindow = 0
-
-
-" nerdtree:
-map <F2> :NERDTreeToggle<CR>   
-let NERDTreeShowBookmarks=1
-let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
-let NERDTreeChDirMode=0
-let NERDTreeMouseMode=2
-let NERDTreeShowHidden=0
-let NERDTreeKeepTreeInNewTab=1
-let g:nerdtree_tabs_open_on_gui_startup=0
-
-" tagbar {
-    let g:tagbar_width = 25
-    nmap <F8> :TagbarToggle<CR>   
-    let g:tagbar_ctags_bin = '/usr/local/Cellar/ctags/5.8_1/bin/ctags' 
-"}
-
-
+vim:set et sw=4 ts=4 tw=78:

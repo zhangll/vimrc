@@ -258,6 +258,15 @@ Bundle 'aklt/plantuml-syntax'
     Bundle 'amoffat/snake'
 "}
 
+Plugin 'maksimr/vim-jsbeautify'
+
+"map <CF> :call JsBeautify()
+" or
+autocmd FileType javascript noremap    :call JsBeautify()
+" for html
+autocmd FileType html noremap   :call HtmlBeautify()
+" for css or scss
+autocmd FileType css noremap   :call CSSBeautify()
 
 " Bundle end {
     call vundle#end()
@@ -301,5 +310,14 @@ end
 "user-command
 command -nargs=0 JsonFormat :%! python -m json.tool<CR><Esc>:set filetype=json<CR>
 
+"search current word in folder
+map fw :call Search_Word()<CR>:copen<CR><CR>
 
-vim:set et sw=4 ts=4 tw=78:
+function Search_Word()
+    let w = expand("<cword>") 
+    let command =  "vimgrep  /" . w . "/gj" . " *.* "
+    echo command
+    execute command
+endfunction
+
+"vim:set et sw=4 ts=4 tw=78:

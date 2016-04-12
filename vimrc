@@ -113,13 +113,16 @@ endfunc
 
 
 " ENCODING {
-    set fencs=utf-8,gbk
+    " inner encoding
     set encoding=utf-8
-    set fileencodings=utf-8,gbk,cp936,latin-1
-	"set encoding=prc
+    set langmenu=zh_CN.UTF-8
+    language messages zh_CN.utf-8
+
+    " test fileencodings(fencs) one by one to find correct fileencoding(fenc)
+    set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
+
     source $VIMRUNTIME/delmenu.vim 
     source $VIMRUNTIME/menu.vim 
-    language messages zh_CN.utf-8
 "}
 
 " Enable omni completion.{
@@ -208,14 +211,16 @@ endfunc
     let g:pymode_rope_complete_on_dot = 0
     "let g:pymode_rope_completion_bind = '<A-/>'
     let g:pymode_lint_cwindow = 0
+    let g:pymode_lint_on_write = 0
+
 
 
     " ultisnips {
         Plugin 'honza/vim-snippets'
         Plugin 'SirVer/ultisnips'
         "let g:UltiSnipsSnippetDirectories=["UltiSnips"]  this is default value
-        "let g:UltiSnipsExpandTrigger="<C-Bslash>"
-        let g:UltiSnipsExpandTrigger="<D-/>"
+        let g:UltiSnipsExpandTrigger="<C-Bslash>"
+        "let g:UltiSnipsExpandTrigger="<D-/>"
         let g:UltiSnipsJumpForwardTrigger="<tab>"
         let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
         let g:UltiSnipsEditSplit="vertical"

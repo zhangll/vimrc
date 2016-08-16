@@ -313,7 +313,7 @@ end
 
 
 "user-command
-command -nargs=0 JsonFormat :%! python -m json.tool<CR><Esc>:set filetype=json<CR>
+command -nargs=0 JsonFormat :%! python -m json.tool <CR><Esc>:set filetype=json<CR>
 
 "search current word in folder
 "map fw :call Search_Word()<CR>:copen<CR><CR>
